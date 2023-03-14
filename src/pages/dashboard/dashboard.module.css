@@ -53,3 +53,75 @@
 .button:hover {
 	background-color: #2a6edc;
 }
+
+.taskContainer {
+	display: flex;
+	flex-direction: column;
+	max-width: 1024px;
+	width: 100%;
+	padding: 0 1.125rem;
+	margin: 2.125rem auto 0 auto;
+}
+
+.taskContainer a {
+	text-decoration: none;
+	color: #0f0f0f;
+}
+
+.taskContainer h2 {
+	text-align: center;
+	font-size: 2rem;
+	margin-bottom: 0.875rem;
+}
+
+.task {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 0.875rem;
+	line-height: 150%;
+	border-radius: 4px;
+	padding: 0.875rem;
+	box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.tagContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 0.5rem;
+}
+
+.tag {
+	background-color: #3183ff;
+	color: #fff;
+	padding: 0.125rem 0.375rem;
+	border-radius: 4px;
+	margin-right: 0.5rem;
+	font-size: 0.75rem;
+}
+
+.shareButton,
+.trashButton {
+	background: transparent;
+	border: 0;
+	margin: 0 8px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.shareButton:hover,
+.trashButton:hover {
+	opacity: 0.8;
+}
+
+.taskContent {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.taskContent p {
+	white-space: pre-wrap;
+}
