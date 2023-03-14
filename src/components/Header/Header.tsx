@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import styles from "@/components/header.module.css";
 import Link from "next/link";
+import styles from "./header.module.css";
 
 export function Header() {
 	const { data: session, status } = useSession();
@@ -9,7 +9,7 @@ export function Header() {
 		<header className={styles.header}>
 			<section className={styles.content}>
 				<nav className={styles.nav}>
-					<Link href="/">
+					<Link href="/" title="Tarefas+ | Organize suas tarefas em equipe">
 						<h1 className={styles.logo}>
 							Tarefas
 							<span>+</span>
