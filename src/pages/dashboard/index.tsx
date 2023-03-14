@@ -1,14 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { Textarea } from "@/components/Textarea";
 import { IoIosShareAlt } from "react-icons/io";
 import { HiTrash } from "react-icons/hi";
+import Head from "next/head";
+
+import { db } from "../../services/firebaseConnection";
+import { addDoc, collection } from "firebase/firestore";
 
 import styles from "./dashboard.module.css";
 
-export default function Dashboard() {
+interface DashboardProps {
+	user: {
+		email: string;
+	};
+}
+
+export default function Dashboard({ user }: DashboardProps) {
 	const [input, setInput] = useState("");
 	const [publicTask, setPublicTask] = useState(false);
 
@@ -16,13 +25,23 @@ export default function Dashboard() {
 		setPublicTask(e.target.checked);
 	}
 
-	function handleRegisterTask(e: FormEvent) {
+	async function handleRegisterTask(e: FormEvent) {
 		e.preventDefault();
 
-		if (input === "") {
-			return;
-		} else {
-			alert("Tarefa criada com sucesso!");
+		if (input === "") return;
+
+		try {
+			await addDoc(collection(db, "tasks"), {
+				task: input,
+				created: new Date(),
+				user: user?.email,
+				public: publicTask,
+			});
+
+			setInput("");
+			setPublicTask(false);
+		} catch (err) {
+			console.log(err);
 		}
 	}
 
@@ -76,36 +95,6 @@ export default function Dashboard() {
 							</button>
 						</div>
 					</article>
-
-					<article className={styles.task}>
-						<div className={styles.tagContainer}>
-							<label className={styles.tag}>PÚBLICA</label>
-							<button className={styles.shareButton}>
-								<IoIosShareAlt size={22} color="#3183ff" />
-							</button>
-						</div>
-						<div className={styles.taskContent}>
-							<p>Minha tarefa de exemplo bla bla bla!</p>
-							<button className={styles.trashButton}>
-								<HiTrash size={24} color="#ea3140" />
-							</button>
-						</div>
-					</article>
-
-					<article className={styles.task}>
-						<div className={styles.tagContainer}>
-							<label className={styles.tag}>PÚBLICA</label>
-							<button className={styles.shareButton}>
-								<IoIosShareAlt size={22} color="#3183ff" />
-							</button>
-						</div>
-						<div className={styles.taskContent}>
-							<p>Minha tarefa de exemplo bla bla bla!</p>
-							<button className={styles.trashButton}>
-								<HiTrash size={24} color="#ea3140" />
-							</button>
-						</div>
-					</article>
 				</section>
 			</main>
 		</div>
@@ -124,6 +113,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 	return {
-		props: {},
+		props: {
+			user: {
+				email: session?.user?.email,
+			},
+		},
 	};
 };
