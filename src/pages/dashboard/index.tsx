@@ -20,7 +20,10 @@ import {
 	deleteDoc,
 } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+
 import styles from "./dashboard.module.css";
+import "react-toastify/dist/ReactToastify.css";
 
 interface DashboardProps {
 	user: {
@@ -96,16 +99,30 @@ export default function Dashboard({ user }: DashboardProps) {
 
 	async function handleShare(id: string) {
 		await navigator.clipboard.writeText(
-			`${process.env.NEXT_PUBLIC_URL}/T=task/${id}`
+			`${process.env.NEXT_PUBLIC_URL}/task/${id}`
 		);
-		alert("Link copiado com sucesso!");
+
+		toast.success("Link copiado com sucesso!", {
+			position: toast.POSITION.BOTTOM_RIGHT,
+			className: styles.toastMessage,
+		});
 	}
 
 	async function handleDeleteTask(id: string) {
 		const docRef = doc(db, "tasks", id);
 		await deleteDoc(docRef);
 
-		alert("Tarefa excluida com sucesso!");
+		if (deleteDoc === null) {
+			toast.error("Erro ao excluir tarefa... tente novamente.", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+				className: styles.toastMessage,
+			});
+		} else {
+			toast.success("Tarefa excluida com sucesso!", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+				className: styles.toastMessage,
+			});
+		}
 	}
 
 	return (
@@ -155,6 +172,7 @@ export default function Dashboard({ user }: DashboardProps) {
 										onClick={() => handleShare(item.id)}
 									>
 										<IoIosShareAlt size={22} color="#3183ff" />
+										<ToastContainer />
 									</button>
 								</div>
 							)}
@@ -172,6 +190,7 @@ export default function Dashboard({ user }: DashboardProps) {
 										size={24}
 										color="#ea3140"
 									/>
+									<ToastContainer />
 								</button>
 							</div>
 						</article>

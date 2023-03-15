@@ -125,3 +125,12 @@
 .taskContent p {
 	white-space: pre-wrap;
 }
+
+.toastMessage {
+	background-color: #0f0f0f;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: 600;
+}
