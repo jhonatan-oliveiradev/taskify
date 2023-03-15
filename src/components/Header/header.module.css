@@ -54,9 +54,24 @@
 }
 
 .link {
-	background-color: #f1f1f1;
-	color: #0f0f0f;
-	padding: 0.25rem 0.75rem;
-	border-radius: 4px;
-	margin: 0 0.875rem;
+	display: flex;
+	align-items: center;
+	background: linear-gradient(120deg, #e75590, #00c2cb, #e75590);
+	background-size: 200%;
+	color: #fff;
+	font-size: 1rem;
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	margin-left: 3rem;
+	cursor: pointer;
+	transition: all 0.5s ease-in-out;
+}
+
+.link:hover {
+	background-position: right;
+}
+
+.link svg {
+	align-items: center;
+	margin-left: 0.5rem;
 }

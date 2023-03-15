@@ -1,13 +1,24 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import { Textarea } from "@/components/Textarea";
 import { IoIosShareAlt } from "react-icons/io";
 import { HiTrash } from "react-icons/hi";
 import Head from "next/head";
+import Link from "next/link";
 
 import { db } from "../../services/firebaseConnection";
-import { addDoc, collection } from "firebase/firestore";
+
+import {
+	addDoc,
+	collection,
+	query,
+	orderBy,
+	where,
+	onSnapshot,
+	doc,
+	deleteDoc,
+} from "firebase/firestore";
 
 import styles from "./dashboard.module.css";
 
@@ -17,9 +28,47 @@ interface DashboardProps {
 	};
 }
 
+interface TaskProps {
+	id: string;
+	created: Date;
+	public: boolean;
+	task: string;
+	user: string;
+}
+
 export default function Dashboard({ user }: DashboardProps) {
 	const [input, setInput] = useState("");
 	const [publicTask, setPublicTask] = useState(false);
+	const [tasks, setTasks] = useState<TaskProps[]>([]);
+
+	useEffect(() => {
+		async function loadTasks() {
+			const tasksRef = collection(db, "tasks");
+			const q = query(
+				tasksRef,
+				orderBy("created", "desc"),
+				where("user", "==", user?.email)
+			);
+
+			onSnapshot(q, (snapshot) => {
+				let list = [] as TaskProps[];
+
+				snapshot.forEach((doc) => {
+					list.push({
+						id: doc.id,
+						created: doc.data().created,
+						public: doc.data().public,
+						task: doc.data().task,
+						user: doc.data().user,
+					});
+				});
+
+				setTasks(list);
+			});
+		}
+
+		loadTasks();
+	}, [user?.email]);
 
 	function handleChangePublic(e: ChangeEvent<HTMLInputElement>) {
 		setPublicTask(e.target.checked);
@@ -45,10 +94,24 @@ export default function Dashboard({ user }: DashboardProps) {
 		}
 	}
 
+	async function handleShare(id: string) {
+		await navigator.clipboard.writeText(
+			`${process.env.NEXT_PUBLIC_URL}/T=task/${id}`
+		);
+		alert("Link copiado com sucesso!");
+	}
+
+	async function handleDeleteTask(id: string) {
+		const docRef = doc(db, "tasks", id);
+		await deleteDoc(docRef);
+
+		alert("Tarefa excluida com sucesso!");
+	}
+
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Tarefas+ | Meu painel de tarefas</title>
+				<title>Taskify+ | Meu painel de tarefas</title>
 			</Head>
 
 			<main className={styles.main}>
@@ -58,10 +121,10 @@ export default function Dashboard({ user }: DashboardProps) {
 						<form onSubmit={handleRegisterTask}>
 							<Textarea
 								value={input}
+								placeholder="Digite sua tarefa aqui..."
 								onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
 									setInput(e.target.value)
 								}
-								placeholder="Digite sua tarefa aqui..."
 							/>
 							<div className={styles.checkboxArea}>
 								<input
@@ -70,7 +133,7 @@ export default function Dashboard({ user }: DashboardProps) {
 									checked={publicTask}
 									onChange={handleChangePublic}
 								/>
-								<label>Deixar tarefa publica?</label>
+								<label>Tornar tarefa publica?</label>
 							</div>
 
 							<button type="submit" className={styles.button}>
@@ -79,22 +142,40 @@ export default function Dashboard({ user }: DashboardProps) {
 						</form>
 					</div>
 				</section>
+
 				<section className={styles.taskContainer}>
 					<h2>Minhas Tarefas</h2>
-					<article className={styles.task}>
-						<div className={styles.tagContainer}>
-							<label className={styles.tag}>PÚBLICA</label>
-							<button className={styles.shareButton}>
-								<IoIosShareAlt size={22} color="#3183ff" />
-							</button>
-						</div>
-						<div className={styles.taskContent}>
-							<p>Minha tarefa de exemplo bla bla bla!</p>
-							<button className={styles.trashButton}>
-								<HiTrash size={24} color="#ea3140" />
-							</button>
-						</div>
-					</article>
+					{tasks.map((item) => (
+						<article key={item.id} className={styles.task}>
+							{item.public && (
+								<div className={styles.tagContainer}>
+									<label className={styles.tag}>PÚBLICO</label>
+									<button
+										className={styles.shareButton}
+										onClick={() => handleShare(item.id)}
+									>
+										<IoIosShareAlt size={22} color="#3183ff" />
+									</button>
+								</div>
+							)}
+							<div className={styles.taskContent}>
+								{item.public ? (
+									<Link href={`/task/${item.id}`}>
+										<p>{item.task}</p>
+									</Link>
+								) : (
+									<p>{item.task}</p>
+								)}
+								<button className={styles.trashButton}>
+									<HiTrash
+										onClick={() => handleDeleteTask(item.id)}
+										size={24}
+										color="#ea3140"
+									/>
+								</button>
+							</div>
+						</article>
+					))}
 				</section>
 			</main>
 		</div>
@@ -112,6 +193,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 			},
 		};
 	}
+
 	return {
 		props: {
 			user: {
