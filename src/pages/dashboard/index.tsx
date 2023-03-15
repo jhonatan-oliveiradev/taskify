@@ -111,7 +111,7 @@ export default function Dashboard({ user }: DashboardProps) {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Taskify+ | Meu painel de tarefas</title>
+				<title>Painel | Taskify+</title>
 			</Head>
 
 			<main className={styles.main}>
