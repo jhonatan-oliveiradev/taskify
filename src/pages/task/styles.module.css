@@ -58,3 +58,55 @@
 .button:hover {
 	background-color: #2a6edc;
 }
+
+.button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.button:disabled:hover {
+	background-color: #3183ff;
+}
+
+.comment {
+	border: 1px solid #ddd;
+	padding: 0.875rem;
+	border-radius: 4px;
+	margin-bottom: 0.875rem;
+}
+
+.headComment {
+	display: flex;
+	align-items: center;
+}
+
+.commentsLabel {
+	background-color: #ddd;
+	padding: 4px 8px;
+	border-radius: 4px;
+	margin-right: 8px;
+}
+
+.buttonTrash {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.buttonTrash:hover {
+	opacity: 0.5;
+}
+
+.comment p {
+	margin-top: 14px;
+	white-space: pre-wrap;
+}
+
+.toastMessage {
+	background-color: #0f0f0f;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: 600;
+}

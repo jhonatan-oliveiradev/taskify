@@ -2,16 +2,16 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBTIZfvouY5WFYnAlix4n-b_ckAQ3xXbEM",
-	authDomain: "taskify-108b5.firebaseapp.com",
-	projectId: "taskify-108b5",
-	storageBucket: "taskify-108b5.appspot.com",
-	messagingSenderId: "518040932098",
-	appId: "1:518040932098:web:31b5fd6a6ebe911cd4fc1b",
+	apiKey: process.env.NEXT_FIREBASE_API_KEY,
+	authDomain: process.env.NEXT_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.NEXT_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.NEXT_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.NEXT_FIREBASE_APP_ID,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseApp);
 
-export { db };
+export default db;

@@ -7,7 +7,7 @@ import { HiTrash } from "react-icons/hi";
 import Head from "next/head";
 import Link from "next/link";
 
-import { db } from "../../services/firebaseConnection";
+import db from "../../services/firebaseConnection";
 
 import {
 	addDoc,
@@ -93,7 +93,10 @@ export default function Dashboard({ user }: DashboardProps) {
 			setInput("");
 			setPublicTask(false);
 		} catch (err) {
-			console.log(err);
+			toast.error("Erro ao excluir tarefa... tente novamente.", {
+				position: toast.POSITION.BOTTOM_RIGHT,
+				className: styles.toastMessage,
+			});
 		}
 	}
 
@@ -111,13 +114,7 @@ export default function Dashboard({ user }: DashboardProps) {
 	async function handleDeleteTask(id: string) {
 		const docRef = doc(db, "tasks", id);
 		await deleteDoc(docRef);
-
-		if (deleteDoc === null) {
-			toast.error("Erro ao excluir tarefa... tente novamente.", {
-				position: toast.POSITION.BOTTOM_RIGHT,
-				className: styles.toastMessage,
-			});
-		} else {
+		if (docRef) {
 			toast.success("Tarefa excluida com sucesso!", {
 				position: toast.POSITION.BOTTOM_RIGHT,
 				className: styles.toastMessage,
