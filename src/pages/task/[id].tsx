@@ -15,9 +15,10 @@ import {
 import db from "../../services/firebaseConnection";
 import Head from "next/head";
 
-import styles from "./styles.module.css";
 import { HiTrash } from "react-icons/hi";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./styles.module.css";
 
 interface TaskProps {
 	item: {
@@ -141,6 +142,7 @@ export default function Task({ item, allComments }: TaskProps) {
 									/>
 								</button>
 							)}
+							<ToastContainer />
 						</div>
 						<p>{item.comment}</p>
 					</article>

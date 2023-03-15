@@ -1,10 +1,18 @@
+import { GetStaticProps } from "next";
+import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/home.module.css";
-import Image from "next/image";
+import db from "@/services/firebaseConnection";
+import { collection, getDocs } from "firebase/firestore";
 
 import heroImage from "/public/hero.png";
 
-export default function Home() {
+interface HomeProps {
+	tasks: number;
+	comments: number;
+}
+
+export default function Home({ tasks, comments }: HomeProps) {
 	return (
 		<>
 			<div className={styles.container}>
@@ -19,7 +27,7 @@ export default function Home() {
 						<Image
 							className={styles.hero}
 							src={heroImage}
-							alt="Tarefas+"
+							alt="Taskify"
 							priority
 						/>
 					</div>
@@ -30,10 +38,10 @@ export default function Home() {
 
 					<div className={styles.infoContent}>
 						<section className={styles.box}>
-							<span>+12 posts</span>
+							<span>+{tasks} posts</span>
 						</section>
 						<section className={styles.box}>
-							<span>+90 comentários</span>
+							<span>+{comments} comentários</span>
 						</section>
 					</div>
 				</main>
@@ -41,3 +49,19 @@ export default function Home() {
 		</>
 	);
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+	const commentRef = collection(db, "comments");
+	const taskRef = collection(db, "tasks");
+
+	const commentSnapshot = await getDocs(commentRef);
+	const taskSnapshot = await getDocs(taskRef);
+
+	return {
+		props: {
+			tasks: taskSnapshot.size || 0,
+			comments: commentSnapshot.size || 0,
+		},
+		revalidate: 60, // 1 minuto
+	};
+};
