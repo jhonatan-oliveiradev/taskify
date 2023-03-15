@@ -1,0 +1,7 @@
+Static Site Generation (SSG) is a technique used in Next.js that allows you to generate a static site during the build process, instead of dynamically generating pages on the server or client.
+
+With SSG, Next.js can pre-render all pages on the site in pure HTML and cache them on a file server or CDN. This makes the page loading process extremely fast, as the server only needs to send the pre-rendered HTML to the user's browser, without the need to run any additional code.
+
+One of the main advantages of SSG is scalability, as the server does not have to render the pages on demand, making it much more resource efficient. Furthermore, SSG is also great for SEO as the content is fully loaded in static HTML, allowing search engines to index the site more efficiently.
+
+In Next.js, SSG can be used in combination with SSR and client-side rendering (CSR), allowing you to choose the best technique for each page of your site, depending on its specific needs. In summary, SSG is a powerful and flexible technique that allows you to create extremely fast, scalable and SEO friendly websites.

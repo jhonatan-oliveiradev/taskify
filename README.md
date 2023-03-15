@@ -1,38 +1,100 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<div align="center">
+<h1 align="center">➕Taskify+.<br> Next.js App</h1>
+</div>
 
-First, run the development server:
+<p align="center">
+  <a href="#-Tecnologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
+
+<p align="center">
+ <img  src="https://img.shields.io/static/v1?label=license&message=MIT&color=04D361&labelColor=281F3D" alt="License" />
+  <img src="https://img.shields.io/github/repo-size/jhonatan-oliveiradev/taskify?label=forks&message=MIT&color=04D361&labelColor=281F3D" alt="Forks" />
+  <img src="https://img.shields.io/github/stars/jhonatan-oliveiradev/taskify?label=stars&message=MIT&color=04D361&labelColor=14061f" alt="Stars" />
+</p>
+
+<p align="center">
+    <img style="border-radius: 20px;" src="public/preview.png" alt="preview">
+</p>
+
+<br>
+
+<p align="center">
+  <img alt="" src=".github/preview-desktop.png" width="100%" />
+</p>
+
+# 📄 Description:
+
+### What is this project? 📝
+
+- This Web App allows you to create tasks and share with your team or study groups and they can insert comments. 
+
+
+- Next.js was chosen for this project because it has features that I thought were essential for the performance of this application, SSR (Server Side Rendering) and SSG (Site Static Generation). Below is a schematic explaining these concepts:
+
+<h2 align="center"><a href="#SSR.txt">Server Side Rendering</a></h2>
+<p align="center">
+  <img alt="server side rendering" src="public/ssr.png" width="700px" height="580px" />
+</p>
+
+<h2 align="center"><a href="#SSG.txt">Static Site Generation</a></h2>
+<p align="center">
+  <img alt="site static generation" src="public/ssg.png" width="700px" height="580px" />
+</p>
+
+&nbsp;
+&nbsp;
+# 🚀 Technologies:
+
+This project was developed with the following technologies:
+
+### ReactJS 📝
+
+### Next.js 📝
+
+### TypeScript 📝
+
+### NextAuth 📝
+
+### Firebase 📝
+
+### Oauth2 📝
+
+### Module-pattern 📝
+
+### react-toastify 📝
+
+
+How to run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+
+# Clone Repository
+
+$ git clone
+
+# Go to folder
+
+$ cd taskify
+
+# Install Dependencies
+
+$ yarn
+
+# Run Aplication
+
+$ yarn dev
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 🚧 Project:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### [Live project!]() 🚀
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# 📝 License:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+This project is under the MIT license. See the [LICENSE](LICENSE) for more information.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<hr>

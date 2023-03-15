@@ -1,0 +1,7 @@
+Server Side Rendering (SSR) is a technique that allows you to render the content of a page on the server side, before it is sent to the user's browser. With SSR, the server sends a ready-made page to the browser, with all its HTML, CSS and JavaScript content.
+
+In Next.js, SSR is one of the core features. When a page is first loaded, Next.js renders the content server-side and sends the resulting HTML to the user's browser. After that, Next.js sends only the necessary updates to the browser, using React to incrementally update the page.
+
+This has several advantages, including improved SEO, reduced page load times, and a better user experience, especially on slower internet connections.
+
+In summary, SSR in Next.js allows you to create pages with dynamic, interactive and responsive content while still maintaining fast loading speed and good user experience.
