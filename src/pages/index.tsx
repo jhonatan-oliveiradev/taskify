@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Head from "next/head";
-import styles from "@/styles/home.module.css";
+import styles from ".home.module.css";
 import db from "@/services/firebaseConnection";
 import { collection, getDocs } from "firebase/firestore";
 
